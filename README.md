@@ -14,4 +14,4 @@ Simple as that.
 
 ## Environment
 
-The generated environment is meant for C, C++, and Go development using Neovim as the text editor and tmux for managing multiple terminal sessions.
+The generated Ubuntu 20.04 VM is meant for C, C++, and Go development using Neovim as the text editor and tmux for managing multiple terminal sessions.

@@ -4,13 +4,11 @@ set -xe
 
 # Copy config files to VM
 export USER_HOME=/home/vagrant
+export END_USER=vagrant
 cp /vagrant/.tmux.conf $USER_HOME/.tmux.conf
 cp /vagrant/.bashrc $USER_HOME/.bashrc
 mkdir -p $USER_HOME/.config
 cp -r /vagrant/nvim $USER_HOME/.config/nvim
-
-# Source configs
-source $USER_HOME/.bashrc
 
 # Install necessary packages
 sudo apt-get update
@@ -35,22 +33,25 @@ sudo apt-get -y install docker-ce docker-ce-cli containerd.io docker-buildx-plug
 
 # Create docker group
 sudo groupadd docker || true
-sudo usermod -aG docker $USER
+sudo usermod -aG docker $END_USER
 newgrp docker
 
 # Go
-curl https://go.dev/dl/go1.22.5.linux-386.tar.gz
-rm -rf /usr/local/go && tar -C /usr/local -xzf go1.22.5.linux-amd64.tar.gz
+export GO_TAR=go1.22.5.linux-386.tar.gz
+curl --fail --remote-name --location --continue-at - https://go.dev/dl/$GO_TAR
+rm -rf /usr/local/go && tar -C /usr/local -xzf $GO_TAR
+cat << EOF >> $USER_HOME/.bashrc
 export PATH=$PATH:/usr/local/go/bin
+EOF
 
 # Neovim
-sudo apt-get install -y gettext
-git clone https://github.com/neovim/neovim
-cd neovim
-git checkout stable
-make CMAKE_BUILD_TYPE=Release
-make install
-sudo apt-get install -y ripgrep
+sudo apt-get install -y gettext ripgrep
+curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim-linux64.tar.gz
+sudo rm -rf /opt/nvim
+sudo tar -C /opt -xzf nvim-linux64.tar.gz
+cat << EOF >> $USER_HOME/.bashrc
+export PATH="$PATH:/opt/nvim-linux64/bin"
+EOF
 
 # Tmux
 sudo apt-get install -y tmux
