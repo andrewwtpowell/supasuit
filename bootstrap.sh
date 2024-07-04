@@ -3,10 +3,11 @@
 set -xe
 
 # Copy config files to VM
-set USER_HOME=/home/vagrant
+export USER_HOME=/home/vagrant
 cp /vagrant/.tmux.conf $USER_HOME/.tmux.conf
 cp /vagrant/.bashrc $USER_HOME/.bashrc
-cp -r /vagrant/nvim $USER_HOME/.config/
+mkdir -p $USER_HOME/.config
+cp -r /vagrant/nvim $USER_HOME/.config/nvim
 
 # Source configs
 source $USER_HOME/.bashrc
@@ -15,7 +16,7 @@ source $USER_HOME/.bashrc
 sudo apt-get update
 
 # Dev Tools
-sudo apt-get install -y build-essential cmake autoconf libtool pkg-config git curl
+sudo apt-get install -y build-essential cmake autoconf libtool pkg-config git curl unzip wget
 
 # Docker
 # Add Docker's official GPG key:
@@ -38,7 +39,9 @@ sudo usermod -aG docker $USER
 newgrp docker
 
 # Go
-sudo apt-get install -y golang-go
+curl https://go.dev/dl/go1.22.5.linux-386.tar.gz
+rm -rf /usr/local/go && tar -C /usr/local -xzf go1.22.5.linux-amd64.tar.gz
+export PATH=$PATH:/usr/local/go/bin
 
 # Neovim
 sudo apt-get install -y gettext
