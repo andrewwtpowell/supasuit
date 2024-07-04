@@ -40,18 +40,12 @@ newgrp docker
 export GO_TAR=go1.22.5.linux-386.tar.gz
 curl --fail --remote-name --location --continue-at - https://go.dev/dl/$GO_TAR
 rm -rf /usr/local/go && tar -C /usr/local -xzf $GO_TAR
-cat << EOF >> $USER_HOME/.bashrc
-export PATH=$PATH:/usr/local/go/bin
-EOF
 
 # Neovim
 sudo apt-get install -y gettext ripgrep
 curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim-linux64.tar.gz
 sudo rm -rf /opt/nvim
 sudo tar -C /opt -xzf nvim-linux64.tar.gz
-cat << EOF >> $USER_HOME/.bashrc
-export PATH="$PATH:/opt/nvim-linux64/bin"
-EOF
 
 # Tmux
 sudo apt-get install -y tmux
