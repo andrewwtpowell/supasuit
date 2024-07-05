@@ -6,9 +6,12 @@ set -xe
 export USER_HOME=/home/vagrant
 export END_USER=vagrant
 cp /vagrant/.tmux.conf $USER_HOME/.tmux.conf
+chown $END_USER:$END_USER $USER_HOME/.tmux.conf
 cp /vagrant/.bashrc $USER_HOME/.bashrc
+chown $END_USER:$END_USER $USER_HOME/.bashrc
 mkdir -p $USER_HOME/.config
 cp -r /vagrant/nvim $USER_HOME/.config/nvim
+chown -R $END_USER:$END_USER $USER_HOME/.config/nvim
 
 # Install necessary packages
 sudo apt-get update
@@ -49,3 +52,5 @@ sudo tar -C /opt -xzf nvim-linux64.tar.gz
 
 # Tmux
 sudo apt-get install -y tmux
+# tpm
+git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
