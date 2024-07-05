@@ -14,10 +14,10 @@ cp -r /vagrant/nvim $USER_HOME/.config/nvim
 chown -R $END_USER:$END_USER $USER_HOME/.config/nvim
 
 # Install necessary packages
-sudo apt-get update
+sudo apt-get update && sudo apt-get upgrade -y
 
 # Dev Tools
-sudo apt-get install -y build-essential cmake autoconf libtool pkg-config git curl unzip wget
+sudo apt-get install -y build-essential cmake autoconf libtool pkg-config git curl unzip wget gcc-multilib
 
 # Docker
 # Add Docker's official GPG key:
@@ -53,4 +53,5 @@ sudo tar -C /opt -xzf nvim-linux64.tar.gz
 # Tmux
 sudo apt-get install -y tmux
 # tpm
-git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+git clone https://github.com/tmux-plugins/tpm $USER_HOME/.tmux/plugins/tpm
+chown -R $END_USER:$END_USER $USER_HOME/.tmux
