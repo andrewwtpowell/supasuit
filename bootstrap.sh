@@ -51,7 +51,7 @@ rm -rf /usr/local/go && tar -C /usr/local -xzf $GO_TAR
 
 # Neovim
 echo "Installing Neovim"
-sudo apt-get install -y gettext ripgrep > /dev/null
+sudo apt-get install -y gettext ripgrep fd-find > /dev/null
 curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim-linux64.tar.gz
 sudo rm -rf /opt/nvim
 sudo tar -C /opt -xzf nvim-linux64.tar.gz
