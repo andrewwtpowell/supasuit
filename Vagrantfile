@@ -13,8 +13,14 @@ Vagrant.configure("2") do |config|
   # Every Vagrant development environment requires a box. You can search for
   # boxes at https://vagrantcloud.com/search.
   config.vm.box = "ubuntu/focal64"
-  #config.vm.box_version = "1.0.282"
   config.vm.provision :shell, path: "bootstrap.sh"
+
+  # Enable using host machine as ssh forwarding agent for authentication
+  # This requires that the host has ssh-agent forwarding enabled in ~/.ssh/config
+  config.ssh.forward_agent = true
+
+  # Check ssh connection to GitHub
+  config.vm.provision :shell, :name => "testing SSH connection to GitHub on VM", :inline => "echo 'Testing SSH connection to GitHub on VM...' && ssh -T -q -oStrictHostKeyChecking=no git@github.com; echo github_ssh_status=$?", run: "always"
 
   # Disable automatic box update checking. If you disable this, then
   # boxes will only be checked for updates when the user runs
