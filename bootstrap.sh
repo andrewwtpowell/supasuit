@@ -56,6 +56,23 @@ curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim-linux64.
 sudo rm -rf /opt/nvim
 sudo tar -C /opt -xzf nvim-linux64.tar.gz
 
+# Lua
+echo "Installing Lua"
+curl -L -R -O https://www.lua.org/ftp/lua-5.4.7.tar.gz
+tar zxf lua-5.4.7.tar.gz
+pushd lua-5.4.7
+make all test
+sudo make install
+popd
+
+echo "Installing LuaRocks"
+curl -L -R -O http://luarocks.github.io/luarocks/releases/luarocks-3.11.1.tar.gz
+tar xzf luarocks-3.11.1.tar.gz
+pushd luarocks-3.11.1
+./configure --with-lua-include=/usr/local/include
+make
+sudo make install
+
 # Tmux
 echo "Installing tmux"
 sudo apt-get install -y tmux > /dev/null
