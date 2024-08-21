@@ -79,3 +79,6 @@ sudo apt-get install -y tmux > /dev/null
 # tpm
 git clone https://github.com/tmux-plugins/tpm $USER_HOME/.tmux/plugins/tpm
 chown -R $END_USER:$END_USER $USER_HOME/.tmux
+
+# Bitwarden CLI
+sudo snap install bw
